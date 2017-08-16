@@ -1,5 +1,7 @@
 import unittest
 from app import app
+from app.model.user_model import User
+from app.model.application import Application
 
 class TestRoutes(unittest.TestCase):
     def setUp(self):
@@ -16,30 +18,30 @@ class TestRoutes(unittest.TestCase):
 
     def test_passwords_not_matching(self):
         data = {'name':'philo philo', 'username':'philo', 'password':
-                'pass', 'password-confirm':'pass123'}
-        response = self.app.post('/', data=data, follow_redirests=True)
+                'pass', 'confirm-password':'pass123'}
+        response = self.app.post('/signup', data=data, follow_redirects=True)
         self.assertIn(b'Passwords do not match', response.data)
 
     def test_user_can_login(self):
         self.application.users = {'philophilo', self.user}
-        response = self.app.post('/', data=dict(username='philo',
+        response = self.app.post('/login', data=dict(username='philo',
                                                 password='pass'),
                                  follow_redirects=True)
         self.assertIn(b'philo', response.data)
 
     def test_invalid_login(self):
         self.application.users = {'philophilo', self.user}
-        response = self.app.post('/', data=dict(username='philo',
+        response = self.app.post('/login', data=dict(username='philo',
                                                 password='pass123'),
                                  follow_redirects=True)
-        self.assertIn(b'Incorrect password or username, please try again',
+        self.assertIn(b'Incorrect password',
                       response.data)
 
     def test_unkown_user_account(self):
-        response = self.app.post('/', data=dict(username='phil',
+        response = self.app.post('/login', data=dict(username='phil',
                                                 password='123'),
                                  follow_redirects=True)
-        self.assertIn(b'login', response.data)
+        self.assertIn(b'Join The Shopping list', response.data)
 
     def test_user_loging_out(self):
         response = self.app.get('/logout', follow_redirects=True)
