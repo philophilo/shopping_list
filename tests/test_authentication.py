@@ -2,6 +2,7 @@ import unittest
 from app.model.user_model import User
 from app.model.application import Application
 
+
 class TestUserAuthentication(unittest.TestCase):
     """
     Class testing user registration and login.
