@@ -19,9 +19,6 @@
 		
 		</style>
 		
-		<script>
-			$('.carousel').carousel();
-		</script>
 		
 	</head>
 	
@@ -43,7 +40,7 @@
 				<div class="collapse navbar-collapse" id="navbar-collapse">
 					
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="#">Bucketlists <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="#">{{ user.username.upper() }}<span class="sr-only">(current)</span></a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
 							<ul class="dropdown-menu">

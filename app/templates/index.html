@@ -42,20 +42,25 @@
 					
 				</div> <!-- end header -->
 				<div class="collapse navbar-collapse" id="navbar-collapse">
-                    {% if login_error %}                                  
-                        <span style="color:red; font-size:20px;">{{ login_error }}</span> 
-                    {% endif %}                                     
+                    
 
-					<form class="navbar-form navbar-right">
+
+					<form class="navbar-form navbar-right" action="/login" method="post">
 						<div class="form-group form-group-sm">
-							<input type="text" class="form-control" placeholder="Username">
+							<input type="text" class="form-control" name="username" id="username" placeholder="Username">
 						</div>
 						<div class="form-group form-group-sm">
-							<input type="password" class="form-control" placeholder="Password">
+							<input type="password" name="password" id="password" class="form-control" placeholder="Password">
 						</div>
 						<button type="submit" class="btn btn-default navbar-btn btn-xs">Login</button>
 					</form>
 					
+                    {% if login_error %}                            
+                        <div class="alert alert-danger alert-dismissable navbar-right">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <strong>{{ login_error }}</strong> 
+                        </div>
+                    {% endif %}                                     
 					
 				</div>
 			</div><!-- end container -->
@@ -79,10 +84,13 @@
 					<div class="col-md-6 packing_right">
 						<div class="signup_panel">
 							<p class="join_bucketlist"> Join The Shopping list</p>
-                                {% if error %}
-                                    <span style="color:red; font-size:20px;"> {{ error }}</span>
-                                {% endif %}
-                            </div>
+                                {% if error %}                            
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                        <strong>{{ error }}</strong> 
+                                    </div>
+                            {% endif %}                                     
+                            
 							<div class="signup_form">
 								<form method="post" class="sign_up" action="/signup">
 									

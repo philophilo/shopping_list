@@ -50,7 +50,7 @@
 								<li><a href="#">Add to Shopping list</a></li>
 								<li><a href="#">My Shoppinglists </a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="#">Log out</a></li>
+                                <li><a href="/login">Log out</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -79,6 +79,16 @@
 									<div class="post-content">
 										<h5 class="media-heading">About</h5>
 										<div class="bucket-details">
+                                            {% with messages = get_flashed_messages() %}
+                                                {% if messages %}
+                                                    {% for message in messages %}
+                                                        <div class="alert alert-success alert-dismissable">
+                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                                            <strong> {{ message }} </strong>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endwith %}
 											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
 										</div>
 									</div>
@@ -108,7 +118,7 @@
 								<div class="media-body">
 									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
 									<div class="post-content">
-										<h4 class="media-heading">Bucketlist heading</h4>
+										<h4 class="media-heading">Shopping list name</h4>
 										<div class="bucket-details">
 											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
 										</div>
@@ -141,7 +151,7 @@
 								<div class="media-body">
 									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
 									<div class="post-content">
-										<h4 class="media-heading">Bucketlist heading</h4>
+										<h4 class="media-heading">Shopping list name</h4>
 										<div class="bucket-details">
 											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
 										</div>
