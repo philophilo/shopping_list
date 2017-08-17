@@ -1,0 +1,32 @@
+[run]
+omit =
+    click/*
+    flask/*
+    markupsafe/*
+    jinja2/*
+    werkzeug/*
+    ctypes/*
+    itdangerous.py
+    _LWPCookieJar.py         
+    _MozillaCookieJar.py     
+    bisect.py                
+    cookielib.py             
+    decimal.py               
+    encodings/ascii.py       
+    encodings/idna.py        
+    encodings/latin_1.py     
+    hmac.py                  
+    htmlentitydefs.py        
+    httplib.py               
+    mimetools.py             
+    mimetypes.py             
+    numbers.py               
+    rfc822.py                
+    blinker/__init__.py      
+    blinker/_saferef.py      
+    blinker/_utilities.py    
+    blinker/base.py          
+    stringprep.py            
+    urllib2.py               
+    uuid.py                  
+

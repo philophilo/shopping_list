@@ -43,7 +43,6 @@ class Application:
         :param username:
         :return bool:
         """
-        print "\n doesuser>>>",username, self.users,"\n"
         if username in self.users.keys():
             return True
         return False

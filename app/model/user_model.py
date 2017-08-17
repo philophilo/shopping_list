@@ -7,4 +7,3 @@ class User:
         self.username = username
         self.name = name
         self.password = password
-        print "from users>>>", self.username, self.password

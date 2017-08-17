@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, flash
 from app import app
-from app.user_model import User
-from app.application import Application
+from app.model.user_model import User
+from app.model.application import Application
 
 
 application = Application()
@@ -29,11 +29,12 @@ def signup():
                     session.pop('_flashes', None)
                     flash("You have successfully signed up. Please Login")
                     return redirect(url_for('login'))
-                return render_template('index.html', error=
-                                       'Known credetials! proceed to login')
+                return render_template('index.html', error='Known \
+                                       credetials! proceed to login')
             error = 'Passwords do not match'
             return render_template('index.html', error=error)
     return render_template('index.html', error=error)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -41,16 +42,17 @@ def login():
     if request.method == 'POST':
         if request.form['username'] and request.form['password']:
             if application.does_user_exist(request.form['username']):
-                if application.login_user(request.form['username'], \
-                                              request.form['password']):
+                if application.login_user(request.form['username'],
+                                          request.form['password']):
                     session['username'] = request.form['username']
                     return redirect(url_for('shopping_list'))
-                return render_template('index.html', login_error=
-                                   'Incorrect password')
-            return render_template('index.html', login_error=
-                               'No account found, please sign up first')
+                return render_template('index.html', login_error='Incorrect \
+                                       password')
+            return render_template('index.html', login_error='No account \
+                                   found, please sign up first')
         login_error = "Invalid credentials, try again"
     return render_template('index.html', login_error=login_error)
+
 
 @app.route('/shopping_list', methods=['GET', 'POST'])
 def shopping_list():
@@ -62,6 +64,7 @@ def shopping_list():
     flash("you have successfully logged in")
     return render_template('profile.html', shopping_error=shopping_error,
                            user=user)
+
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
