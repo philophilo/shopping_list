@@ -2,13 +2,13 @@ language:
     python
 
 # blocklist
-    branches:
-    except:
-        - flask-functionality
-        - flask-user-authentication
-        - test-authentication
-        - test_shopping_list
+branches:
+ except:
+  - flask-functionality
+  - flask-user-authentication
+  - test-authentication
+  - test_shopping_list
 # safelist
-    branches:
-    only:
-        - master
+branches:
+ only:
+ - master
