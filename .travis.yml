@@ -1,7 +1,8 @@
 language: python
 
 python:
-  - 3.6.1
+  - 2.7
+  - 3.3
 
 cache: pip
 
