@@ -7,3 +7,49 @@ This is a shopping list application for the andela bootcamp project. The applica
 
 The project is tracked at
 https://www.pivotaltracker.com/projects/2092667
+
+The following are the features
+
+- A user can Register
+- A user can Login with specified username and password
+
+__Setup__
+
+To start clone the repository
+
+```
+git clone https://github.com/philophilo/shopping_list.git
+cd shopping_list
+```
+
+Create a virtual environment and activate it
+
+```
+virtualenv env
+source env/bin/activate
+```
+
+Install all the requirements 
+
+```
+pip install -r requirements.txt
+```
+
+You can now run the application
+
+```
+python run.py
+```
+
+In the browser
+
+```
+http://127.0.0.1:5000
+```
+
+You can then run the application tests using
+
+```
+cd shopping_list/tests
+nosetests -v <testfile>
+```
