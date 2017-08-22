@@ -16,8 +16,8 @@ class Shopping():
             return self.shopping_list[list_id]
         return None
 
-    def update_item(self, item_id, name, description, deadline):
-        if item_id in self.shopping_list.keys():
+    def update_item(self, list_id, name, description, deadline):
+        if list_id in self.shopping_list.keys():
             item = self.shopping_list[item_id]
             item.name = name
             item.description = description

@@ -18,6 +18,9 @@ class User:
         print self.shopping_lists.values()
         return True
 
+    def get_all_shopping_lists(self):
+        return self.shopping_lists
+
 
     def get_shopping_list(self, list_id):
         print self.shopping_lists.values(), list_id

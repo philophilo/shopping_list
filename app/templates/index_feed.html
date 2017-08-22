@@ -65,6 +65,41 @@
 		
 		<div class="container wrapper">
 			<section>
+
+                <div class= "row">
+                    {% for key, value in shopping_lists.items() %}
+					<div class="col-md-6">
+						<div class="media-wrapper">
+							<div class="media">
+								<a class="media-left" href="#">
+									<img src="../static/images/user.png">
+								</a>
+								<div class="media-body">
+									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
+									<div class="post-content">
+										<h4 class="media-heading">Bucketlist heading</h4>
+										<div class="bucket-details">
+                                            {{ key }}, {{ value.name }}
+										</div>
+									</div>
+									<div class="timing">
+										<span class="pull-left due-date">Due: dd/mm/yyyy</span>
+										<span class="pull-right posted-date">Posted: dd/mm/yyyy</span>
+									</div>
+								</div>
+								
+							</div>
+							<div class="comments">
+								<p class="pull-right">
+									<a class="">Comment</a>
+								</p>
+							</div>
+						</div>
+						
+					</div>
+                    {% endfor %}
+                </div>
+
 				<div class="row">
 					<div class="col-md-6">
 						<div class="media-wrapper">

@@ -36,7 +36,7 @@
 				<div class="collapse navbar-collapse" id="navbar-collapse">
 					
 					<ul class="nav navbar-nav navbar-right">
-						<li class=""><a href="#">Bucketlists <span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="#">{{ user.username.upper() }}<span class="sr-only">(current)</span></a></li>
 						<li class="active dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -70,32 +70,32 @@
 									<img src="../static/images/user.png">
 								</a>
 								<div class="media-body">
-									<a href=""><h3 class="media-heading">Firstname Lastname</h3></a>
+                                    <a href=""><h3 class="media-heading">{{ user.name.upper() }}</h3></a>
 									<div class="post-content">
-										<form action="" class="form-horizontal">
+										<form action="/add_shopping_list" method="post" class="form-horizontal">
 											
 											
 											<div class="form-group">
-												<label for="user-post" class="col-lg-2 control-label">Activity</label>
+												<label for="user-post" class="col-lg-2 control-label">Shopping list name</label>
 											
 												<div class="col-lg-10">
-													<input type="text" class="form-control" id="user-post" placeholder="eg. Climbing Mt. Everest">
+													<input type="text" class="form-control" id="user-post" name="name" placeholder="eg. Climbing Mt. Everest">
 												</div>
 											</div><!-- end form group -->
 											
 											<div class="form-group">
-												<label for="post-detail" class="col-lg-2 control-label">Details</label>
+												<label for="post-detail" class="col-lg-2 control-label">Shopping items</label>
 											
 												<div class="col-lg-10">
-													<textarea class="form-control" id="post-detail" placeholder="Add a few details" cols="20" rows="10"></textarea>
+													<textarea class="form-control" id="post-detail" name="items" placeholder="Add a few details" cols="20" rows="10"></textarea>
 												</div>
 											</div><!-- end form group -->
 											
 											<div class="form-group">
-												<label for="post-due" class="col-lg-2 control-label">Due</label>
+												<label for="post-due" class="col-lg-2 control-label">Due date</label>
 											
 												<div class="col-lg-10">
-													<input type="date" class="form-control" id="post-due" placeholder="">
+													<input type="date" class="form-control" id="post-due" name="due" placeholder="">
 												</div>
 											</div><!-- end form group -->
 											
