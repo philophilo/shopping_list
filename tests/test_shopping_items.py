@@ -6,18 +6,18 @@ class TestBucketItems(unittest.TestCase):
     def setUp(self):
         self.shopping = Shopping("AZXDJSA", "Travel")
 
-    def test_user_can_create_bucket(self):
+    def test_user_can_create_shopping_list(self):
         item = Shopping_list_item('XZBNVLK', 'Kampala',
                                   'Find Baganda', '2017-07-27')
         self.assertTrue(self.shopping.create_item(item))
 
-    def test_item_already_exists_in_the_bucket(self):
+    def test_item_already_exists_in_the_shopping_list(self):
         item = Shopping_list_item('XZBNVLK', 'Kampala',
                                   'Find Baganda', '2017-07-27')
         self.shopping.shopping_list = {'XZBNVLK': item}
         self.assertFalse(self.shopping.create_item(item))
 
-    def test_an_item_in_the_bucket_is_returned_when_an_id_is_specified(self):
+    def test_an_item_in_the_shopping_list_returned_when_an_id_is_specified(self):
         item = Shopping_list_item('XZBNVLK', 'Kampala',
                                   'Find Baganda', '2017-07-27')
         self.shopping.shopping_list = {'XZBNVLK': item}

@@ -8,6 +8,19 @@ from app.model.shopping_model import Shopping, Shopping_list_item
 application = Application()
 
 
+def get_user_items(shopping_lists):
+    shopping_lists_with_items = dict
+    print shopping_lists
+    for list_key, list_value in shopping_lists.items():
+        list_name = list_value.name
+        items = list_value.shopping_list.values()
+        for item in items:
+            print item
+            shopping_lists_with_items[list_name] = {'items':item.description,
+                                                  'date':item.deadline}
+    return shopping_lists_with_items
+
+
 @app.route('/')
 @app.route('/home')
 def index():
@@ -27,7 +40,6 @@ def signup():
                             request.form['password'],
                             request.form['name'])
                 if application.register_user(user):
-                    session.pop('flashes', None)
                     flash("You have successfully signed up. Please Login")
                     return redirect(url_for('login'))
                 return render_template('index.html', error='Known \
@@ -46,6 +58,7 @@ def login():
                 if application.login_user(request.form['username'],
                                           request.form['password']):
                     session['username'] = request.form['username']
+                    flash("you have successfully logged in", 'login_success')
                     return redirect(url_for('shopping_list'))
                 return render_template('index.html', login_error='Incorrect \
                                        password')
@@ -62,8 +75,20 @@ def shopping_list():
     if not user:
         return redirect(url_for('login'))
     session.pop('flashes', None)
-    flash("you have successfully logged in")
+
+    shopping_lists_with_items = dict()
+    shopping_lists = user.get_all_shopping_lists()
+    for list_key, list_value in shopping_lists.items():
+        list_name = list_value.name
+        items = list_value.shopping_list.values()
+        for item in items:
+            shopping_lists_with_items[list_name] = {'items':item.description,
+                                                  'date':item.deadline,
+                                                    'shop_id':list_key,
+                                                    'shop_id_list':item.id}
+
     return render_template('profile.html', shopping_error=shopping_error,
+                           shopping_lists=shopping_lists_with_items,
                            user=user)
 
 
@@ -81,13 +106,12 @@ def add_shopping_list():
         if user.create_shopping_list(Shopping(
             shopping_list_id, name)):
             print "kawa"
-            items_list = request.form['items'].split('--')
             shop = user.get_shopping_list(shopping_list_id)
             if shop.create_item(
                     Shopping_list_item(application.generate_random_key(),
-                                       "", items_list,
+                                       "", request.form['items'],
                                        request.form['due'])):
-                flash("The shopping list has succeefully been added")
+                flash("The shopping list has succeefully been added", )
                 return redirect(url_for('shopping_list_feed'))
         add_error = "The shopping list exists already"
     session.pop('flashes', None)
@@ -102,8 +126,19 @@ def shopping_list_feed():
     user = application.get_user(session['username'])
     if not user:
         return redirect(url_for('login'))
+
+    #shopping_lists_with_items = get_user_items(user.get_all_shopping_lists())
+
+    shopping_lists_with_items = dict()
+    shopping_lists = user.get_all_shopping_lists()
+    for list_key, list_value in shopping_lists.items():
+        list_name = list_value.name
+        items = list_value.shopping_list.values()
+        for item in items:
+            shopping_lists_with_items[list_name] = {'items':item.description,
+                                                  'date':item.deadline}
     return render_template('index_feed.html', user=user,
-                           shopping_lists=user.get_all_shopping_lists(),
+                           shopping_lists=shopping_lists_with_items,
                            feed_error=feed_error)
 
 
@@ -111,3 +146,74 @@ def shopping_list_feed():
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
+
+
+@app.route('/delete/shopping_list/<list_id>', methods=['GET', 'POST'])
+def delete_shopping_list(list_id):
+    error = None
+    user = application.get_user(session['username'])
+    if not user:
+        return redirect(url_for('login'))
+    shopping_list = user.get_shopping_list(list_id)
+    if not shopping_list:
+        flash("Success fully deleted ", "deleted")
+        return redirect(url_for('shopping_list'))
+
+    shopping_lists_with_items = dict()
+    shopping_lists = user.get_all_shopping_lists()
+    for list_key, list_value in shopping_lists.items():
+        list_name = list_value.name
+        items = list_value.shopping_list.values()
+        for item in items:
+            shopping_lists_with_items[list_name] = {'items':item.description,
+                                                  'date':item.deadline}
+
+    if request.method == 'GET':
+        if user.delete_shopping_list(list_id):
+            flash("You have successfully Deleted the shopping list")
+            return redirect(url_for('shopping_list'))
+        error = "Could not delete the specified shopping list"
+    return render_template('profile.html', error=error,
+                           shopping_lists=shopping_lists_with_items,
+                           user=user)
+
+
+
+@app.route('/update', methods=['GET', 'POST'])
+def update_shopping_list():
+    if request.form['shopping_id'] and request.form['list_id']:
+        shopping_id = request.form['shopping_id']
+        list_id = request.form['list_id']
+    print ">>>>>", shopping_id, list_id
+    error = None
+    user = application.get_user(session['username'])
+    if not user:
+        return redirect(url_for('login'))
+    shopping_list = user.get_shopping_list(shopping_id)
+    if not shopping_list:
+        return redirect(url_for('shopping_list'))
+
+    if request.method == 'POST':
+        name = request.form['name']
+        if name:
+            if user.update_shopping_list(shopping_id, name):
+                if shopping_list.update_item(list_id, request.form['name'],
+                                      request.form['items'],
+                                      request.form['due-date']):
+                    flash("You have successfully updated your Bucket")
+                    return redirect(url_for('shopping_list'))
+        error = "Please provide the bucket name"
+
+    shopping_lists_with_items = dict()
+    shopping_lists = user.get_all_shopping_lists()
+    for list_key, list_value in shopping_lists.items():
+        list_name = list_value.name
+        items = list_value.shopping_list.values()
+        for item in items:
+            shopping_lists_with_items[list_name] = {'items':item.description,
+                                                  'date':item.deadline}
+
+    return render_template('profile.html', error=error,
+                           shopping_lists=shopping_lists_with_items,
+                           user=user)
+

@@ -40,15 +40,15 @@
 				<div class="collapse navbar-collapse" id="navbar-collapse">
 					
 					<ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#">{{ user.username.upper() }}<span class="sr-only">(current)</span></a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+                        <li class=""><a href="/shopping_list">{{ user.username.upper() }}<span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="/add_shopping_list">Add shopping list<span class="sr-only">(current)</span></a></li>
+						<li class="active dropdown">
+							<a href="/shopping_list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Edit profile</a></li>
-								<li><a href="#">Add to bucket list</a></li>
-								<li><a href="#">My bucketlist</a></li>
+								<li><a href="/shopping_list_feed">My Shoppinglists </a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="#">Log out</a></li>
+                                <li><a href="/logout">Log out</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -67,7 +67,8 @@
 			<section>
 
                 <div class= "row">
-                    {% for key, value in shopping_lists.items() %}
+
+                    {%  for key, value in shopping_lists.items() %}
 					<div class="col-md-6">
 						<div class="media-wrapper">
 							<div class="media">
@@ -75,15 +76,15 @@
 									<img src="../static/images/user.png">
 								</a>
 								<div class="media-body">
-									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
+                                    <a href="" class=""><h5 class="media-heading">{{ user.name }}</h5></a>
 									<div class="post-content">
-										<h4 class="media-heading">Bucketlist heading</h4>
+                                        <h4 class="media-heading">{{ key }}</h4>
 										<div class="bucket-details">
-                                            {{ key }}, {{ value.name }}
+                                            {{ value['items'] }}
 										</div>
 									</div>
 									<div class="timing">
-										<span class="pull-left due-date">Due: dd/mm/yyyy</span>
+                                        <span class="pull-left due-date">Due: {{ value.date }}</span>
 										<span class="pull-right posted-date">Posted: dd/mm/yyyy</span>
 									</div>
 								</div>
@@ -97,75 +98,10 @@
 						</div>
 						
 					</div>
-                    {% endfor %}
+                    {% endfor %} 
+
                 </div>
 
-				<div class="row">
-					<div class="col-md-6">
-						<div class="media-wrapper">
-							<div class="media">
-								<a class="media-left" href="#">
-									<img src="../static/images/user.png">
-								</a>
-								<div class="media-body">
-									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
-									<div class="post-content">
-										<h4 class="media-heading">Bucketlist heading</h4>
-										<div class="bucket-details">
-											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
-										</div>
-									</div>
-									<div class="timing">
-										<span class="pull-left due-date">Due: dd/mm/yyyy</span>
-										<span class="pull-right posted-date">Posted: dd/mm/yyyy</span>
-									</div>
-								</div>
-								
-							</div>
-							<div class="comments">
-								<p class="pull-right">
-									<a class="">Comment</a>
-								</p>
-							</div>
-						</div>
-						
-					</div>
-					
-					
-					<div class="col-md-6">
-						<div class="media-wrapper">
-							<div class="media">
-								<a class="media-left" href="#">
-									<img src="../static/images/user.png">
-								</a>
-								<div class="media-body">
-									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
-									<div class="post-content">
-										<h4 class="media-heading">Bucketlist heading</h4>
-										<div class="bucket-details">
-											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
-										</div>
-									</div>
-									<div class="timing">
-										<span class="pull-left due-date">Due: dd/mm/yyyy</span>
-										<span class="pull-right posted-date">Posted: dd/mm/yyyy</span>
-									</div>
-								</div>
-								
-							</div>
-							<div class="comments">
-								<p class="pull-right">
-									<a class="">Comment</a>
-								</p>
-							</div>
-						</div>
-						
-					</div>
-					
-					
-					
-					
-					
 					
 				</div>
 			</section>

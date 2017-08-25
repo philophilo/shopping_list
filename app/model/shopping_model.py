@@ -11,6 +11,9 @@ class Shopping():
             self.shopping_list[shopping_item.id] = shopping_item
             return True
 
+    def get_all_items(self):
+        return self.shopping_list
+
     def get_item(self, list_id):
         if list_id in self.shopping_list.keys():
             return self.shopping_list[list_id]
@@ -18,16 +21,16 @@ class Shopping():
 
     def update_item(self, list_id, name, description, deadline):
         if list_id in self.shopping_list.keys():
-            item = self.shopping_list[item_id]
+            item = self.shopping_list[list_id]
             item.name = name
             item.description = description
             item.deadline = deadline
             return True
         return False
 
-    def delete_item(self, item_id):
-        if item_id in self.shopping_list.keys():
-            self.shopping_list.pop(item_id)
+    def delete_item(self, list_id):
+        if list_id in self.shopping_list.keys():
+            self.shopping_list.pop(list_id)
             return True
         return False
 

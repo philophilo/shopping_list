@@ -15,11 +15,16 @@
 		
 		</style>
 		<script type="text/javascript">
-			$(document).ready(function(){
+			/*$('document').ready(function(){
 				$(".ex-modal").click(function(){
 					$("#myModal").modal('show');
 				});
-			});
+
+                $('.picker').click(function(){
+                    console.log('--')
+                });
+
+			});*/
 		</script>
 		
 	</head>
@@ -42,15 +47,15 @@
 				<div class="collapse navbar-collapse" id="navbar-collapse">
 					
 					<ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="#">{{ user.username.upper() }}<span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="/shopping_list">{{ user.username.upper() }}<span class="sr-only">(current)</span></a></li>
+                        <li class=""><a href="/add_shopping_list">Add shopping list<span class="sr-only">(current)</span></a></li>
 						<li class="active dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+							<a href="/shopping_list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Edit profile</a></li>
-								<li><a href="/add_shopping_list">Add to Shopping list</a></li>
-								<li><a href="#">My Shoppinglists </a></li>
+								<li><a href="/shopping_list_feed">My Shoppinglists </a></li>
 								<li role="separator" class="divider"></li>
-                                <li><a href="/login">Log out</a></li>
+                                <li><a href="/logout">Log out</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -75,17 +80,19 @@
 									<img src="../static/images/user.png">
 								</a>
 								<div class="media-body">
-									<h3 class="media-heading">Firstname Lastname</h3>
+                                    <h3 class="media-heading"> {{ user.name }} </h3>
 									<div class="post-content">
-										<h5 class="media-heading">About</h5>
+										<h5 class="media-heading">About you</h5>
 										<div class="bucket-details">
-                                            {% with messages = get_flashed_messages() %}
+                                            {% with messages = get_flashed_messages(with_categories=true) %}
                                                 {% if messages %}
-                                                    {% for message in messages %}
-                                                        <div class="alert alert-success alert-dismissable">
-                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                                                            <strong> {{ message }} </strong>
-                                                        </div>
+                                                    {% for category, message in messages %}
+                                                        {% if category == "login_success"%}
+                                                            <div class="alert alert-success alert-dismissable">
+                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                                                <strong> {{ message }} </strong>
+                                                            </div>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 {% endif %}
                                             {% endwith %}
@@ -107,25 +114,22 @@
 		
 		<div class="container wrapper">
 			<section>
-				<div class="row">
+                <div class= "row">
+
+                    {%  for key, value in shopping_lists.items() %}
 					<div class="col-md-6">
-						
 						<div class="media-wrapper">
 							<div class="media">
 								<a class="media-left" href="#">
 									<img src="../static/images/user.png">
 								</a>
 								<div class="media-body">
-									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
+                                    <a href="" class=""><h5 class="media-heading">{{ user.name }}</h5></a>
 									<div class="post-content">
-										<h4 class="media-heading">Shopping list name</h4>
+                                        <h4 class="media-heading">{{ key }}</h4>
 										<div class="bucket-details">
-											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
+                                            {{ value['items'] }}
 										</div>
-									</div>
-									<div class="timing">
-										<span class="pull-left due-date">Due: dd/mm/yyyy</span>
-										<span class="pull-right posted-date">Posted: dd/mm/yyyy</span>
 									</div>
 								</div>
 								
@@ -133,46 +137,17 @@
 							<div class="comments">
 								<p class="pull-right">
 									<a href="#" class="">Comment</a>
-									<a href="#myModal" role="button" data-toggle="modal" class="ex-modal">Edit</a>
-									<a href="#" class="">Delete</a>
+                                    <a href="#myModal"i class="picker" role="button" data-toggle="modal" data-id="{{ key }} ??? {{ value['items'] }} ??? {{ value['shop_id'] }} ??? {{ value['shop_id_list'] }}" class="ex-modal">Edit</a>
+                                    <a href="/delete/shopping_list/{{ value['shop_id'] }}" class="">Delete</a>
 								</p>
 							</div>
 						</div>
 						
 					</div>
-					
-					<div class="col-md-6">
-						
-						<div class="media-wrapper">
-							<div class="media">
-								<a class="media-left" href="#">
-									<img src="../static/images/user.png">
-								</a>
-								<div class="media-body">
-									<a href="" class=""><h5 class="media-heading">Firstname Lastname</h5></a>
-									<div class="post-content">
-										<h4 class="media-heading">Shopping list name</h4>
-										<div class="bucket-details">
-											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type 
-										</div>
-									</div>
-									<div class="timing">
-										<span class="pull-left due-date">Due: dd/mm/yyyy</span>
-										<span class="pull-right posted-date">Posted: dd/mm/yyyy</span>
-									</div>
-								</div>
-								
-							</div>
-							<div class="comments">
-								<p class="pull-right">
-									<a href="#" class="">Comment</a>
-									<a href="#myModal" role="button" data-toggle="modal" class="ex-modal">Edit</a>
-									<a href="#" class="">Delete</a>
-								</p>
-							</div>
-						</div>
-						
-					</div>
+                    {% endfor %} 
+
+                </div>
+
 					
 					
 				</div>
@@ -197,32 +172,33 @@
 									<img src="../static/images/user.png">
 								</a>
 								<div class="media-body">
-									<a href=""><h3 class="media-heading">Firstname Lastname</h3></a>
+                                    <a href=""><h3 class="media-heading">{{ user.name }}</h3></a>
 									<div class="post-content">
-										<form action="" class="form-horizontal">
+                                        <form id="edit-form" action="/update" class="form-horizontal" method="post">
 											
 											
 											<div class="form-group">
-												<label for="user-post" class="col-lg-2 control-label">Activity</label>
+												<label for="name" class="col-lg-2 control-label">Shopping list</label>
 											
 												<div class="col-lg-10">
-													<input type="text" class="form-control" id="user-post" placeholder="eg. Climbing Mt. Everest">
+                                                    <input type="text" class="form-control" id="name" name="name">
 												</div>
 											</div><!-- end form group -->
 											
 											<div class="form-group">
-												<label for="post-detail" class="col-lg-2 control-label">Details</label>
+												<label for="items" class="col-lg-2 control-label">Items</label>
 											
 												<div class="col-lg-10">
-													<textarea class="form-control" id="post-detail" placeholder="Add a few details" cols="20" rows="10"></textarea>
+													<textarea class="form-control" id="items" name="items" placeholder="Add a few details" cols="20" rows="10"></textarea>
 												</div>
 											</div><!-- end form group -->
-											
+										    <input type="text" id="shopping_id" name="shopping_id">	
+                                            <input type="text" id="list_id" name="list_id">
 											<div class="form-group">
-												<label for="post-due" class="col-lg-2 control-label">Due</label>
+												<label for="due-date" class="col-lg-2 control-label">Due</label>
 											
 												<div class="col-lg-10">
-													<input type="date" class="form-control" id="post-due" placeholder="">
+													<input type="date" class="form-control" id="due-date" placeholder="" name="due-date">
 												</div>
 											</div><!-- end form group -->
 											<div class="form-group">
@@ -247,6 +223,25 @@
 		
 		<script src="../static/js/jquery.js"></script>
 		<script src="../static/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript">
+			/*{
+                Function to render data for the edit form
+			*/
+
+            $(document).on("click", ".picker", function () {
+                var myBookId = $(this).data('id');
+                console.log(myBookId)
+                items = myBookId.split(" ??? ")
+                console.log('..', items[2], items[3])
+                $("#myModal").find('#name').val(items[0])
+                $("#myModal").find('#shopping_id').val(items[2])
+                $("#myModal").find('#list_id').val(items[3])
+                $("#myModal").find('#items').text(items[1])
+                // $("#myModal").find('#edit-form').attr('action', ['/shopping_list/?shopping_id='+items[2]+'/&list_id='+items[3]])
+
+            });
+		</script>
 		
 	</body>
 	
