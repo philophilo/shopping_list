@@ -1,5 +1,5 @@
 # shopping_list
-<a href="https://codeclimate.com/github/codeclimate/codeclimate/coverage"><img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg" /></a> [![Build Status](https://travis-ci.org/philophilo/shopping_list.svg?branch=master)](https://travis-ci.org/philophilo/shopping_list)
+<a href="https://codeclimate.com/github/codeclimate/codeclimate/coverage"><img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg" /></a> [![Build Status](https://travis-ci.org/philophilo/shopping_list.svg?branch=master)](https://travis-ci.org/philophilo/shopping_list) [![Coverage Status](https://coveralls.io/repos/philophilo/shopping_list/badge.svg?branch=master)](https://coveralls.io/r/philophilo/shopping_list?branch=master)
 
 This is a shopping list application for the andela bootcamp project. The application allows users to set up their shopping lists.
 
